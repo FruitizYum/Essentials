@@ -85,7 +85,7 @@ public class Commandhome extends EssentialsCommand {
         if (home.length() < 1) {
             //throw new NotEnoughArgumentsException();
             for (int x = 0; x < homes.size(); x++){
-                
+                //ENTER HERE
             }
         }
         final Location loc = player.getHome(home);
