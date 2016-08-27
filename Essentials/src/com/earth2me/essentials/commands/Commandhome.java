@@ -84,9 +84,14 @@ public class Commandhome extends EssentialsCommand {
     private void goHome(final User user, final User player, final String home, final Trade charge) throws Exception {
         if (home.length() < 1) {
             //throw new NotEnoughArgumentsException();
-            for (int x = 0; x < homes.size(); x++){
-                //ENTER HERE
+            final Location loc = player.getHome("home");
+            if (loc == null) {
+                throw new NotEnoughArgumentsException();
             }
+            if (user.getWorld() != loc.getWorld() && ess.getSettings().isWorldHomePermissions() && !user.isAuthorized("essentials.worlds." + loc.getWorld().getName())) {
+                throw new Exception(tl("noPerm", "essentials.worlds." + loc.getWorld().getName()));
+            }
+            user.getTeleport().teleport(loc, charge, TeleportCause.COMMAND);
         }
         final Location loc = player.getHome(home);
         if (loc == null) {
