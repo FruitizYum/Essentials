@@ -15,7 +15,7 @@ import static com.earth2me.essentials.I18n.tl;
 
 public class Commandhome extends EssentialsCommand {
     public Commandhome() {
-        super("home");
+        super("home" && !"homes");
     }
 
     // This method contains an undocumented translation parameters #EasterEgg
