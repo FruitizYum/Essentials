@@ -15,7 +15,7 @@ import static com.earth2me.essentials.I18n.tl;
 
 public class Commandhome extends EssentialsCommand {
     public Commandhome() {
-        super("home" && !"homes");
+        super("home");
     }
 
     // This method contains an undocumented translation parameters #EasterEgg
@@ -93,13 +93,15 @@ public class Commandhome extends EssentialsCommand {
             }
             user.getTeleport().teleport(loc, charge, TeleportCause.COMMAND);
         }
-        final Location loc = player.getHome(home);
-        if (loc == null) {
-            throw new NotEnoughArgumentsException();
+        else{
+            final Location loc = player.getHome(home);
+            if (loc == null) {
+                throw new NotEnoughArgumentsException();
+            }
+            if (user.getWorld() != loc.getWorld() && ess.getSettings().isWorldHomePermissions() && !user.isAuthorized("essentials.worlds." + loc.getWorld().getName())) {
+                throw new Exception(tl("noPerm", "essentials.worlds." + loc.getWorld().getName()));
+            }
+            user.getTeleport().teleport(loc, charge, TeleportCause.COMMAND);
         }
-        if (user.getWorld() != loc.getWorld() && ess.getSettings().isWorldHomePermissions() && !user.isAuthorized("essentials.worlds." + loc.getWorld().getName())) {
-            throw new Exception(tl("noPerm", "essentials.worlds." + loc.getWorld().getName()));
-        }
-        user.getTeleport().teleport(loc, charge, TeleportCause.COMMAND);
     }
 }
